@@ -761,7 +761,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	for (i=0; i<10; i++){
+	for (i=0; i<5; i++){
 
 	VectorSet(offset, 8, 8 + (i * 10), ent->viewheight-8);
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
