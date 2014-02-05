@@ -551,6 +551,7 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 {
 	vec3_t		origin;
 	int			n;
+	int i;
 
 	if (other == ent->owner)
 		return;
@@ -569,7 +570,7 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 
 	if (other->takedamage)
 	{
-		T_Damage (other, ent, ent->owner, ent->velocity, ent->s.origin, plane->normal, ent->dmg, -1000, 0, MOD_ROCKET);
+		T_Damage (other, ent, ent->owner, ent->velocity, ent->s.origin, plane->normal, ent->dmg, (((int)(random()) % (200)) + 300) * -1, 0, MOD_ROCKET);
 		//T_Damage (other, ent, ent->owner, ent->velocity, ent->s.origin, plane->normal, ent->dmg, 0, 0, MOD_ROCKET);
 	}
 	else

@@ -748,10 +748,10 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 
 
 	//damage = 100 + (int)(random() * 20.0);
-	damage = -50;
-	radius_damage = -50;
+	damage = ((int)(random()) % (169 - 42)) + 42;
+	radius_damage = -69;
 	//radius_damage = 120;
-	damage_radius = 120;
+	damage_radius = 240;
 	if (is_quad)
 	{
 		damage *= 4;
@@ -763,9 +763,9 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	for (i=0; i<5; i++){
+	for (i = 0; i < 5; i++){
 
-	VectorSet(offset, 8, -15 + (i * 5), ent->viewheight-8);
+	VectorSet(offset, 8, -15 + (i * 8), ent->viewheight-8);
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 	
 	fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
