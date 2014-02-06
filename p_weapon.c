@@ -744,11 +744,11 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	int		damage;
 	float	damage_radius;
 	int		radius_damage;
-	int i;
-
+	int i,x,y,z;
+	char flip;
 
 	//damage = 100 + (int)(random() * 20.0);
-	damage = ((int)(random()) % (169 - 42)) + 42;
+	damage = ((int)(random()) % (127)) + 42;
 	radius_damage = -69;
 	//radius_damage = 120;
 	damage_radius = 240;
@@ -762,13 +762,32 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
+	//x=-10;
+	//y=-10;
+	for (i = 0; i < 9; i++){
+		x=(int)(random() * 20.0);
+		y=(int)(random() * 20.0);
+		z=(int)(random() * 8.0);
+		if (flip){
+			//VectorSet(offset, 8, -5 + (i * 5), ent->viewheight-8);
 
-	for (i = 0; i < 3; i++){
-
-	VectorSet(offset, 8, -5 + (i * 5), ent->viewheight-8);
-	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+			VectorSet(offset, x + (i * y), y + (i * x), z);
+			P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 	
-	fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+			fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+			flip='A';
+		} else {
+			x=-x;
+			y=-y;
+			z=-z;
+			VectorSet(offset, y - (i * x), x - (i * y), z);
+			P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+	
+			fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+		
+			flip=NULL;
+		}
+
 	}
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
