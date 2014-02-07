@@ -760,7 +760,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	for (i = 0; i < 9; i++){
 
 		//damage = 100 + (int)(random() * 20.0);
-		damage = ((int)(random()) % (127)) + 42;
+		damage = ((((int)(random()) % (127)) + 42) * -1);
 		radius_damage = -69;
 		//radius_damage = 120;
 		damage_radius = 240;
