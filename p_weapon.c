@@ -744,7 +744,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	int		damage;
 	float	damage_radius;
 	int		radius_damage;
-	int i,x,y,z;
+	int i,x,y,z,q;
 	char flip;
 	
 
@@ -766,25 +766,48 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	//x=-10;
 	//y=-10;
 	for (i = 0; i < 9; i++){
-		x=(int)(random() * 20.0);
-		y=(int)(random() * 20.0);
-		z=(int)(random() * 8.0);
-		if (flip){
+		q = (int)(random() * 5.0);
+		if (flip == 'A'){
 			//VectorSet(offset, 8, -5 + (i * 5), ent->viewheight-8);
-
-			VectorSet(offset, x + (i * y), y + (i * x), (z * i));
+			x=(int)(random() * 20.0);
+			y=(int)(random() * 20.0);
+			z=(int)(random() * 40.0);
+			VectorSet(offset, x + (q * y), y + (q * x), (z * q));
 			P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 	
 			fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
-			flip=NULL;
-		} else {
+			flip='B';
+		} else if (flip == 'B') {
 			/*x=-x;
 			y=-y;
 			z=-z;*/
 			x=(int)(random() * -40.0);
-			y=(int)(random() * -20.0);
-			z=(int)(random() * -8.0);
-			VectorSet(offset, y - (i * x), x - (i * y), (z * i));
+			y=(int)(random() * -40.0);
+			z=(int)(random() * -40.0);
+			VectorSet(offset, (y * q), (x * q), (z));
+			//VectorSet(offset, y - (i * -x), x - (i * -y), (z * i));
+			P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+	
+			fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+		
+			flip='C';
+		} else if (flip == 'C') {
+			x=(int)(random() * -40.0);
+			y=(int)(random() * -40.0);
+			z=(int)(random() * 40.0);
+			VectorSet(offset, (y * q), (x * q), (z * q));
+			
+			P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+	
+			fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+		
+			flip=NULL;
+		} else {
+			x=(int)(random() * 40.0);
+			y=(int)(random() * 40.0);
+			z=(int)(random() * -40.0);
+			VectorSet(offset, (y * q), (x * q), (z));
+			
 			P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 	
 			fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
