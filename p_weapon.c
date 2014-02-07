@@ -748,16 +748,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	char flip;
 	
 
-	//damage = 100 + (int)(random() * 20.0);
-	damage = ((int)(random()) % (127)) + 42;
-	radius_damage = -69;
-	//radius_damage = 120;
-	damage_radius = 240;
-	if (is_quad)
-	{
-		damage *= 4;
-		radius_damage *= 4;
-	}
+
 
 	AngleVectors (ent->client->v_angle, forward, right, NULL);
 
@@ -765,7 +756,20 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	ent->client->kick_angles[0] = -1;
 	//x=-10;
 	//y=-10;
+	//VectorSet(offset, 8, 8, ent->viewheight-8);
+	//fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
 	for (i = 0; i < 9; i++){
+
+		//damage = 100 + (int)(random() * 20.0);
+		damage = ((int)(random()) % (127)) + 42;
+		radius_damage = -69;
+		//radius_damage = 120;
+		damage_radius = 240;
+		if (is_quad)
+			{
+			damage *= 4;
+			radius_damage *= 4;
+			}
 		q = (int)(random() * 5.0);
 		if (flip == 'A'){
 			//VectorSet(offset, 8, -5 + (i * 5), ent->viewheight-8);
