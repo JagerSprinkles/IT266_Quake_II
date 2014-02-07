@@ -754,7 +754,12 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
+<<<<<<< HEAD
 
+=======
+	//x=-10;
+	//y=-10;
+>>>>>>> c65660ccd6535b42c3dd9eda656ac8ea38d07c01
 	//VectorSet(offset, 8, 8, ent->viewheight-8);
 	//fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
 	for (i = 0; i < 9; i++){
