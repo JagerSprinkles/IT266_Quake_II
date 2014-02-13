@@ -592,10 +592,22 @@ void InitClientPersistant (gclient_t *client)
 	memset (&client->pers, 0, sizeof(client->pers));
 
 	item = FindItem("Blaster");
+	
 	client->pers.selected_item = ITEM_INDEX(item);
 	client->pers.inventory[client->pers.selected_item] = 1;
 
 	client->pers.weapon = item;
+
+	item = FindItem("Rocket Launcher");
+	client->pers.selected_item = ITEM_INDEX(item);
+	client->pers.inventory[client->pers.selected_item] = 1;
+
+	
+	item = FindItem("Rockets");
+	client->pers.selected_item = ITEM_INDEX(item);
+	client->pers.inventory[client->pers.selected_item] = 34;
+	//client->pers.weapon = item;
+
 
 	client->pers.health			= 100;
 	client->pers.max_health		= 100;

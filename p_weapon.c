@@ -744,11 +744,13 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	int		damage;
 	float	damage_radius;
 	int		radius_damage;
-	int i,x,y,z,q;
+	int i,x,y,z,q,p;
 	char flip;
 	
 
-
+	damage = ((((int)(random()) % (127)) + 42) * -1);
+	radius_damage = -69;
+	damage_radius = 240;
 
 	AngleVectors (ent->client->v_angle, forward, right, NULL);
 
@@ -760,7 +762,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	for (i = 0; i < 9; i++){
 
 		//damage = 100 + (int)(random() * 20.0);
-		damage = ((((int)(random()) % (127)) + 42) * -1);
+		damage = ((((int)(random()* 500) % (127)) + 42) * -1);
 		radius_damage = -69;
 		//radius_damage = 120;
 		damage_radius = 240;
@@ -770,6 +772,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 			radius_damage *= 4;
 			}
 		q = (int)(random() * 5.0);
+		p = (((int)(random() * 9001) % (1337)) + 420);
 		if (flip == 'A'){
 			//VectorSet(offset, 8, -5 + (i * 5), ent->viewheight-8);
 			x=(int)(random() * 20.0);
@@ -778,7 +781,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 			VectorSet(offset, x + (q * y), y + (q * x), (z * q));
 			P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 	
-			fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+			fire_rocket (ent, start, forward, damage, p, damage_radius, radius_damage);
 			flip='B';
 		} else if (flip == 'B') {
 			/*x=-x;
@@ -791,7 +794,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 			//VectorSet(offset, y - (i * -x), x - (i * -y), (z * i));
 			P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 	
-			fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+			fire_rocket (ent, start, forward, damage, p, damage_radius, radius_damage);
 		
 			flip='C';
 		} else if (flip == 'C') {
@@ -802,7 +805,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 			
 			P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 	
-			fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+			fire_rocket (ent, start, forward, damage, p, damage_radius, radius_damage);
 		
 			flip=NULL;
 		} else {
@@ -813,7 +816,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 			
 			P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 	
-			fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+			fire_rocket (ent, start, forward, damage, p, damage_radius, radius_damage);
 		
 			flip='A';
 		}
