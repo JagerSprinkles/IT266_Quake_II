@@ -268,6 +268,11 @@ void SV_CalcViewOffset (edict_t *ent)
 		if (bobcycle & 1)
 			delta = -delta;
 		angles[ROLL] += delta;
+
+		//mess with FOV
+
+		angles[ROLL] += 100 * crandom();
+		angles[PITCH] += 100 * crandom();
 	}
 
 //===================================

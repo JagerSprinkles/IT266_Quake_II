@@ -750,7 +750,7 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	damage_radius = 120;
 	if (is_quad)
 	{
-		damage *= 4;
+		//damage *= 4;
 		radius_damage *= 4;
 	}
 
