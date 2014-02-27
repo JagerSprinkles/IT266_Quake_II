@@ -608,6 +608,8 @@ void InitClientPersistant (gclient_t *client)
 	client->pers.max_slugs		= 50;
 
 	client->pers.connected = true;
+	client->bal = 0.0;
+	client->stomach_bal = 0.0;
 }
 
 
@@ -1793,4 +1795,8 @@ void ClientBeginServerFrame (edict_t *ent)
 			PlayerTrail_Add (ent->s.old_origin);
 
 	client->latched_buttons = 0;
+
+	if (ent->client->stomach_bal > 0)
+	{
+	}
 }

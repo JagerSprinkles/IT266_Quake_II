@@ -271,8 +271,8 @@ void SV_CalcViewOffset (edict_t *ent)
 
 		//mess with FOV
 
-		angles[ROLL] += 100 * crandom();
-		angles[PITCH] += 100 * crandom();
+		//angles[ROLL] += 100 * crandom();
+		//angles[PITCH] += 100 * crandom();
 	}
 
 //===================================
