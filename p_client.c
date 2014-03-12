@@ -364,6 +364,18 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 				message = "tried to invade";
 				message2 = "'s personal space";
 				break;
+			case MOD_SNIPER_CHEST:
+                message = "was blasted by";
+                message2 = "'s sniper rifle";
+                break;
+            case MOD_SNIPER_LEG:
+                message = "has a limp now thanks to";
+                message2 = "'s sniper rifle";
+                break;
+            case MOD_SNIPER_HEAD:
+                message = "recieved a lobotomy from";
+                message2 = "'s sniper rifle";
+                break;
 			}
 			if (message)
 			{
@@ -594,6 +606,14 @@ void InitClientPersistant (gclient_t *client)
 	item = FindItem("Blaster");
 	client->pers.selected_item = ITEM_INDEX(item);
 	client->pers.inventory[client->pers.selected_item] = 1;
+
+	item = FindItem("Slugs");
+    client->pers.selected_item = ITEM_INDEX(item);
+    client->pers.inventory[client->pers.selected_item] = 20;
+
+    item = FindItem("Sniper Rifle");
+    client->pers.selected_item = ITEM_INDEX(item);
+    client->pers.inventory[client->pers.selected_item] = 1;
 
 	client->pers.weapon = item;
 
