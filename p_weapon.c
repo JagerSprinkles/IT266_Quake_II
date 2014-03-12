@@ -1460,7 +1460,7 @@ void weapon_sniper_fire (edict_t *ent)
 
 void Weapon_SniperRifle (edict_t *ent)
 {
-    static int    pause_frames[]    = {39, 45, 50, 55, 0};
+    static int    pause_frames[]    = {39, 45, 0};
     static int    fire_frames[]    = {9, 0};
 
     Weapon_Generic (ent, 8, 32, 55, 58, pause_frames, fire_frames, weapon_sniper_fire);
