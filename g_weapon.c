@@ -457,6 +457,10 @@ static void Grenade_Touch (edict_t *ent, edict_t *other, cplane_t *plane, csurfa
 		{
 			gi.sound (ent, CHAN_VOICE, gi.soundindex ("weapons/grenlb1b.wav"), 1, ATTN_NORM, 0);
 		}
+		
+		VectorClear (ent->velocity) ;               
+		VectorClear (ent->avelocity) ;
+		ent->movetype = MOVETYPE_NONE;
 		return;
 	}
 
