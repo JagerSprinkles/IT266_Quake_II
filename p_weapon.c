@@ -1328,6 +1328,7 @@ void weapon_railgun_fire (edict_t *ent)
 	vec3_t		start;
 	vec3_t		forward, right;
 	vec3_t		offset;
+	/*
 	int			damage;
 	int			kick;
 
@@ -1341,10 +1342,35 @@ void weapon_railgun_fire (edict_t *ent)
 		damage = 150;
 		kick = 250;
 	}
+	*/
+	
+	
+	int kick;   
+	if (deathmatch->value)
+		kick = 200;
+	if (ent->client->buttons & BUTTON_ATTACK)
+	{
+		ent->ChargeDamage += 5;
+		if (ent->ChargeDamage>150)		
+			ent->ChargeDamage= 150;
+		if (ent->ChargeDamage == 145)
+			gi.cprintf (ent, PRINT_HIGH, "Charge Rail At Max Power!\n");
+		if (ent->ChargeDamage == 145)
+			gi.sound( ent, CHAN_WEAPON, gi.soundindex("misc/comp_up.wav"), 1, ATTN_NONE, 0 );
+		return;
+	}
+	if (ent->ChargeDamage == 0)
+	{
+		ent->ChargeDamage = 1;
+		return;
+	}
+	if (ent->ChargeDamage<70)
+		ent->ChargeDamage= 70; //This sets the minimum damage of the Sonic Rail
+
 
 	if (is_quad)
 	{
-		damage *= 4;
+		ent->ChargeDamage *=4;
 		kick *= 4;
 	}
 
@@ -1355,7 +1381,7 @@ void weapon_railgun_fire (edict_t *ent)
 
 	VectorSet(offset, 0, 7,  ent->viewheight-8);
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
-	fire_rail (ent, start, forward, damage, kick);
+	fire_rail (ent, start, forward, ent->ChargeDamage, kick);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -1368,6 +1394,7 @@ void weapon_railgun_fire (edict_t *ent)
 
 	if (! ( (int)dmflags->value & DF_INFINITE_AMMO ) )
 		ent->client->pers.inventory[ent->client->ammo_index]--;
+	ent->ChargeDamage = 0;
 }
 
 
