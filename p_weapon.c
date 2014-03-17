@@ -836,7 +836,7 @@ void Weapon_Blaster_Fire (edict_t *ent)
 
 	damage = ((int)(random() * 3));
 
-	Blaster_Fire (ent, vec3_origin, damage, false, EF_BLASTER);
+	Blaster_Fire (ent, vec3_origin, damage, false, (EF_BLASTER & EF_TELEPORTER) |  EF_PENT );
 	ent->client->ps.gunframe++;
 }
 
