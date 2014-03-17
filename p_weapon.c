@@ -745,8 +745,8 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	float	damage_radius;
 	int		radius_damage;
 
-	damage = 100 + (int)(random() * 20.0);
-	radius_damage = 120;
+	damage = 25 + (int)(crandom() * 10.0);
+	radius_damage = 12;
 	damage_radius = 120;
 	if (is_quad)
 	{
@@ -759,9 +759,9 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	VectorSet(offset, 8, 8, ent->viewheight-8);
+	VectorSet(offset, 88, 8, ent->viewheight-8);
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
-	fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+	fire_rocket (ent, start, forward, damage, 600, damage_radius, radius_damage);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -1034,12 +1034,9 @@ void Chaingun_Fire (edict_t *ent)
 	float		r, u;
 	vec3_t		offset;
 	int			damage;
-	int			kick = 2;
+	int			kick = 50;
 
-	if (deathmatch->value)
-		damage = 6;
-	else
-		damage = 8;
+	damage = 2;
 
 	if (ent->client->ps.gunframe == 5)
 		gi.sound(ent, CHAN_AUTO, gi.soundindex("weapons/chngnu1a.wav"), 1, ATTN_IDLE, 0);
@@ -1081,19 +1078,9 @@ void Chaingun_Fire (edict_t *ent)
 		ent->s.frame = FRAME_attack1 - (ent->client->ps.gunframe & 1);
 		ent->client->anim_end = FRAME_attack8;
 	}
-
-	if (ent->client->ps.gunframe <= 9)
-		shots = 1;
-	else if (ent->client->ps.gunframe <= 14)
-	{
-		if (ent->client->buttons & BUTTON_ATTACK)
-			shots = 2;
-		else
-			shots = 1;
-	}
-	else
-		shots = 3;
-
+	
+	shots = 1;
+	
 	if (ent->client->pers.inventory[ent->client->ammo_index] < shots)
 		shots = ent->client->pers.inventory[ent->client->ammo_index];
 
@@ -1116,16 +1103,16 @@ void Chaingun_Fire (edict_t *ent)
 
 	for (i=0 ; i<3 ; i++)
 	{
-		ent->client->kick_origin[i] = crandom() * 0.35;
-		ent->client->kick_angles[i] = crandom() * 0.7;
+		ent->client->kick_origin[i] = crandom() * 4;
+		ent->client->kick_angles[i] = crandom() * 5;
 	}
 
 	for (i=0 ; i<shots ; i++)
 	{
 		// get start / end positions
 		AngleVectors (ent->client->v_angle, forward, right, up);
-		r = 7 + crandom()*4;
-		u = crandom()*4;
+		r = 7 + crandom()*42;
+		u = crandom()*25;
 		VectorSet(offset, 0, r, u + ent->viewheight-8);
 		P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 
@@ -1148,7 +1135,7 @@ void Chaingun_Fire (edict_t *ent)
 void Weapon_Chaingun (edict_t *ent)
 {
 	static int	pause_frames[]	= {38, 43, 51, 61, 0};
-	static int	fire_frames[]	= {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0};
+	static int	fire_frames[]	= {5,  7,  9, 10, 12, 13, 15, 16,  18, 19, 21, 0};
 
 	Weapon_Generic (ent, 4, 31, 61, 64, pause_frames, fire_frames, Chaingun_Fire);
 }
