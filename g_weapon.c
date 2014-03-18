@@ -608,8 +608,8 @@ void suicide_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *s
 	vec3_t		origin;
 	int			n;
 
-	if (other == ent->owner)
-		return;
+	//if (other == ent->owner)
+		//return;
 
 	if (surf && (surf->flags & SURF_SKY))
 	{
@@ -677,7 +677,7 @@ void suicide_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *s
 	rocket->think = G_FreeEdict;
 	rocket->dmg = 100;
 	rocket->radius_dmg = 200;
-	rocket->dmg_radius = 300;
+	rocket->dmg_radius = 250;
 	rocket->s.sound = gi.soundindex ("weapons/rockfly.wav");
 	rocket->classname = "rocket";
 
