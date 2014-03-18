@@ -539,8 +539,8 @@ void soldier_attack1_refire2 (edict_t *self)
 
 mframe_t soldier_frames_attack1 [] =
 {
-	ai_charge, 0,  NULL,
-	ai_charge, 0,  NULL,
+	//ai_charge, 0,  NULL,
+	//ai_charge, 0,  NULL,
 	ai_charge, 0,  soldier_fire1,
 	ai_charge, 0,  NULL,
 	ai_charge, 0,  NULL,
