@@ -1233,9 +1233,9 @@ void weapon_shotgun_fire (edict_t *ent)
 		kick *= 4;
 	}
 
-		fire_shotgun (ent, start, forward, damage, kick, 750, 700, 8, MOD_SHOTGUN);
+		fire_shotgun (ent, start, forward, damage, kick, 750, 700, 6, MOD_SHOTGUN);
 
-		fire_shotgun (ent, start, forward, damage, kick, 1000, 900, 8, MOD_SHOTGUN);
+		fire_shotgun (ent, start, forward, damage, kick, 1000, 900, 6, MOD_SHOTGUN);
 
 
 	// send muzzle flash
