@@ -1253,7 +1253,7 @@ void weapon_shotgun_fire (edict_t *ent)
 
 void Weapon_Shotgun (edict_t *ent)
 {
-	static int	pause_frames[]	= {22, 28, 34, 0};
+	static int	pause_frames[]	= {12,22, 28, 34, 0};
 	static int	fire_frames[]	= {8, 11, 0};
 
 	Weapon_Generic (ent, 7, 20, 36, 39, pause_frames, fire_frames, weapon_shotgun_fire);
