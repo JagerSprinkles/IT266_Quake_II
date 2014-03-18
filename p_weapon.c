@@ -1211,7 +1211,7 @@ void weapon_shotgun_fire (edict_t *ent)
 	vec3_t		forward, right;
 	vec3_t		offset;
 	int			damage = 4;
-	int			kick = 8;
+	int			kick = 42;
 
 	if (ent->client->ps.gunframe == 9)
 	{
@@ -1233,10 +1233,10 @@ void weapon_shotgun_fire (edict_t *ent)
 		kick *= 4;
 	}
 
-	if (deathmatch->value)
-		fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
-	else
-		fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);
+		fire_shotgun (ent, start, forward, damage, kick, 750, 700, 8, MOD_SHOTGUN);
+
+		fire_shotgun (ent, start, forward, damage, kick, 1000, 900, 8, MOD_SHOTGUN);
+
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -1254,9 +1254,9 @@ void weapon_shotgun_fire (edict_t *ent)
 void Weapon_Shotgun (edict_t *ent)
 {
 	static int	pause_frames[]	= {22, 28, 34, 0};
-	static int	fire_frames[]	= {8, 9, 0};
+	static int	fire_frames[]	= {8, 11, 0};
 
-	Weapon_Generic (ent, 7, 18, 36, 39, pause_frames, fire_frames, weapon_shotgun_fire);
+	Weapon_Generic (ent, 7, 20, 36, 39, pause_frames, fire_frames, weapon_shotgun_fire);
 }
 
 
