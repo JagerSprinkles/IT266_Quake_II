@@ -459,9 +459,9 @@ static void Grenade_Touch (edict_t *ent, edict_t *other, cplane_t *plane, csurfa
 			gi.sound (ent, CHAN_VOICE, gi.soundindex ("weapons/grenlb1b.wav"), 1, ATTN_NORM, 0);
 		}
 		
-		VectorClear (ent->velocity) ;               
-		VectorClear (ent->avelocity) ;
-		ent->movetype = MOVETYPE_NONE;
+		//VectorClear (ent->velocity) ;               
+		//VectorClear (ent->avelocity) ;
+		//ent->movetype = MOVETYPE_NONE;
 		return;
 	}
 
@@ -504,6 +504,12 @@ void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int s
 
 void fire_grenade2 (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius, qboolean held)
 {
+
+
+
+  
+
+
 	edict_t	*grenade;
 	vec3_t	dir;
 	vec3_t	forward, right, up;
@@ -544,7 +550,11 @@ void fire_grenade2 (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int 
 		gi.sound (self, CHAN_WEAPON, gi.soundindex ("weapons/hgrent1a.wav"), 1, ATTN_NORM, 0);
 		gi.linkentity (grenade);
 	}
+	
+	
+	
 }
+
 
 
 /*
@@ -1105,4 +1115,119 @@ void ApplyThrust (edict_t *ent)
                           gi.sound (ent, CHAN_BODY, gi.soundindex("weapons/rockfly.wav"), 1, ATTN_NORM, 0);
                           ent->client->next_thrust_sound=level.time+1.0;
              }
+}
+
+
+
+void Homing_Think(edict_t *grenade) {
+
+  vec3_t dir, forward, right, up;
+
+  edict_t *ent = NULL;
+
+  edict_t *best = NULL;
+
+  float b_dist = 99999;
+
+  float dist = 0;
+
+
+  if (grenade->delay > level.time)
+    return;
+
+
+  while ((ent = findradius (ent, grenade->s.origin, 1500)) != NULL)
+  {
+    if (ent == grenade->owner)
+      continue;
+    if (!ent->takedamage)
+      continue;
+    if (OnSameTeam(ent, grenade->owner))
+      continue;
+
+    if (ent->deadflag == DEAD_DEAD)
+      continue;
+    if (!CanDamage (grenade, ent))
+      continue;
+
+    VectorSubtract (ent->s.origin, grenade->s.origin, dir);
+    dist = VectorLength (dir);
+    if (dist < b_dist)
+    {
+      b_dist = dist;
+      best = ent;
+    }
+  }
+  grenade->goalentity = best;
+ 
+  if (grenade->goalentity)
+  {
+    
+ 
+    VectorSubtract(grenade->goalentity->s.origin, grenade->s.origin, dir);
+
+    vectoangles (dir, dir);
+    VectorCopy (dir, grenade->s.angles);
+    VectorCopy (dir, grenade->movedir);
+    AngleVectors(dir, forward, right, up);
+
+    right[0] += 5 * crandom();
+    right[1] += 5 * crandom();
+    right[2] = 0;
+
+    VectorNormalize(dir);
+
+    VectorMA(dir, 20 + 20 * random(), up, grenade->velocity);
+    VectorMA(dir, 10 * crandom(), right, grenade->velocity);
+    VectorMA(dir, 250, forward, grenade->velocity);
+
+    
+    VectorSet (grenade->avelocity, 0, VectorLength (grenade->velocity), 0); 
+    grenade->groundentity = NULL;
+  }
+  else if (rand() % 20 == 0)
+    grenade->think (grenade); 
+}
+
+
+void Fire_Homing_Grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float damage_radius)
+{
+  edict_t *grenade;
+  vec3_t dir, forward, right, up;
+
+  vectoangles (aimdir, dir);
+  AngleVectors (dir, forward, right, up);
+
+
+  grenade = G_Spawn();
+  grenade->owner = self;
+  grenade->activator = self;
+  grenade->goalentity = NULL; // Targeted Player.
+  grenade->classname = "hominggrenade";
+  VectorCopy (start, grenade->s.origin);
+  grenade->s.origin[2] += 10;
+  VectorScale (aimdir, speed, grenade->velocity);
+  VectorMA (grenade->velocity, 10 + random() * 30.0, up, grenade->velocity);
+  VectorMA (grenade->velocity, crandom() * 10.0, right, grenade->velocity);
+  VectorSet (grenade->avelocity, 300, 300, 300);
+  grenade->movetype = MOVETYPE_FLYRICOCHET;
+  grenade->clipmask = MASK_SHOT;
+  grenade->solid = SOLID_BBOX;
+  grenade->s.effects |= EF_GRENADE;
+  VectorSet(grenade->mins, -3, -3, -3);
+  VectorSet(grenade->maxs, 3, 3, 3);
+  grenade->s.modelindex = gi.modelindex("models/objects/grenade2/tris.md2");
+  grenade->dmg = damage;
+  grenade->dmg_radius = damage_radius;
+  grenade->spawnflags = 1;
+  grenade->s.sound = gi.soundindex("world/airhiss1.wav");
+
+  grenade->delay = level.time + 0.2;
+
+  grenade->touch = Grenade_Touch;
+  grenade->prethink = Homing_Think;
+  grenade->nextthink = level.time + 10.0;
+  grenade->think = Grenade_Explode;
+
+  gi.linkentity(grenade);
 }

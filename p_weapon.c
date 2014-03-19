@@ -692,7 +692,7 @@ void weapon_grenadelauncher_fire (edict_t *ent)
 	vec3_t	offset;
 	vec3_t	forward, right;
 	vec3_t	start;
-	int		damage = 120;
+	int		damage = 23;
 	float	radius;
 
 	radius = damage+40;
@@ -706,7 +706,10 @@ void weapon_grenadelauncher_fire (edict_t *ent)
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	fire_grenade (ent, start, forward, damage, 600, 2.5, radius);
+	//fire_grenade (ent, start, forward, damage, 600, 2.5, radius);
+
+	Fire_Homing_Grenade (ent, start, forward, damage, 20, radius);
+		
 
 	gi.WriteByte (svc_muzzleflash);
 	gi.WriteShort (ent-g_edicts);
@@ -724,7 +727,7 @@ void weapon_grenadelauncher_fire (edict_t *ent)
 void Weapon_GrenadeLauncher (edict_t *ent)
 {
 	static int	pause_frames[]	= {34, 51, 59, 0};
-	static int	fire_frames[]	= {6, 0};
+	static int	fire_frames[]	= {6, 8, 0};
 
 	Weapon_Generic (ent, 5, 16, 59, 64, pause_frames, fire_frames, weapon_grenadelauncher_fire);
 }
