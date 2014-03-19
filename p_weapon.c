@@ -819,7 +819,7 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	
 	fire_blaster (ent, start, forward, damage, speed, effect, hyper);
 	fire_blaster (ent, start, forward, damage, speed * 0.85, effect, hyper);
-	fire_blaster (ent, start, forward, damage, speed * 0.77, effect, hyper);
+	fire_blaster (ent, start, forward, damage, speed * 0.6, effect, hyper);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -847,7 +847,7 @@ void Weapon_Blaster_Fire (edict_t *ent)
 void Weapon_Blaster (edict_t *ent)
 {
 	static int	pause_frames[]	= {19, 32, 0};
-	static int	fire_frames[]	= {5, 6, 7, 0};
+	static int	fire_frames[]	= {5, 7, 0};
 
 	Weapon_Generic (ent, 4, 8, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
 }
@@ -947,7 +947,12 @@ void Machinegun_Fire (edict_t *ent)
 	int damage;
 	int kick;
 
-	damage = 6;
+	//damage = 7;
+
+	damage = ((int)(random() )% 15 + 10 );
+	if (random() > 0.95)
+		damage = 99; //small chance for crit hit
+
 	kick = 100;
 
 	if (is_quad)
