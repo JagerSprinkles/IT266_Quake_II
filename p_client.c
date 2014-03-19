@@ -300,18 +300,19 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 				message = "was blasted by";
 				break;
 			case MOD_SHOTGUN:
-				message = "was gunned down by";
+				message = "was pumped full of lead by";
 				break;
 			case MOD_SSHOTGUN:
 				message = "was blown away by";
 				message2 = "'s super shotgun";
 				break;
 			case MOD_MACHINEGUN:
-				message = "was machinegunned by";
+				message = "was filled with holes by";
+				message2 = "'s pistol";
 				break;
 			case MOD_CHAINGUN:
-				message = "was cut in half by";
-				message2 = "'s chaingun";
+				message = "is now swiss cheese because of";
+				message2 = "'s minigun";
 				break;
 			case MOD_GRENADE:
 				message = "was popped by";
@@ -323,11 +324,11 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 				break;
 			case MOD_ROCKET:
 				message = "ate";
-				message2 = "'s rocket";
+				message2 = "'s mortar shell";
 				break;
 			case MOD_R_SPLASH:
 				message = "almost dodged";
-				message2 = "'s rocket";
+				message2 = "'s mortar rain";
 				break;
 			case MOD_HYPERBLASTER:
 				message = "was melted by";

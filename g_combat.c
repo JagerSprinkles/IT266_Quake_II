@@ -387,12 +387,12 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	// easy mode takes half damage
 	if (skill->value == 0 && deathmatch->value == 0 && targ->client)
 	{
-		damage *= 0.5;
+		damage *= 0.42;
 		if (!damage)
 			damage = 1;
 	} else if (skill->value == 1 && deathmatch->value == 0 && targ->client)
 	{ //Medium difficulty has slightly reduced damage
-		damage *= 0.75;
+		damage *= 0.62;
 		if (!damage)
 			damage = 1;
 	
