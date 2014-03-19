@@ -1596,6 +1596,10 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		return;
 	}
 
+	if (ent->client->thrusting) 		
+		ApplyThrust (ent);
+
+
 	pm_passent = ent;
 
 	if (ent->client->chase_target) {

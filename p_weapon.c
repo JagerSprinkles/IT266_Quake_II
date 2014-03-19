@@ -811,11 +811,12 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	speed = ((((int)(random()) % (600)) + 400));
+	speed = ((((int)(random()) % (800)) + 600));
 
-	fire_blaster (ent, start, forward, damage, 700, effect, hyper);
-	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
-	fire_blaster (ent, start, forward, damage, 800, effect, hyper);
+	
+	fire_blaster (ent, start, forward, damage, speed, effect, hyper);
+	fire_blaster (ent, start, forward, damage, speed * 0.85, effect, hyper);
+	fire_blaster (ent, start, forward, damage, speed * 0.77, effect, hyper);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -834,7 +835,7 @@ void Weapon_Blaster_Fire (edict_t *ent)
 {
 	int		damage;
 
-	damage = ((int)(random() * 3));
+	damage = ((int)(random() * 4));
 
 	Blaster_Fire (ent, vec3_origin, damage, false, (EF_BLASTER & EF_TELEPORTER) |  EF_PENT );
 	ent->client->ps.gunframe++;
