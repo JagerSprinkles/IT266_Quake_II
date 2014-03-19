@@ -1254,7 +1254,7 @@ void SP_monster_soldier (edict_t *self)
 	gi.soundindex ("soldier/solatck1.wav");
 
 	self->s.skinnum = 2;
-	self->health = 80;
+	self->health = 77;
 	self->gib_health = -30;
 }
 
@@ -1275,6 +1275,6 @@ void SP_monster_soldier_ss (edict_t *self)
 	gi.soundindex ("soldier/solatck3.wav");
 
 	self->s.skinnum = 4;
-	self->health = 120;
+	self->health = 85;
 	self->gib_health = -30;
 }

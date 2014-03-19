@@ -685,9 +685,9 @@ void suicide_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *s
 	rocket->touch = suicide_touch;
 	rocket->nextthink = level.time + 8000/speed;
 	rocket->think = G_FreeEdict;
-	rocket->dmg = 100;
+	rocket->dmg = 77;
 	rocket->radius_dmg = 200;
-	rocket->dmg_radius = 250;
+	rocket->dmg_radius = 180;
 	rocket->s.sound = gi.soundindex ("weapons/rockfly.wav");
 	rocket->classname = "rocket";
 

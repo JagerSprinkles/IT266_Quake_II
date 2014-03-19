@@ -367,9 +367,7 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	if (!targ->takedamage)
 		return;
 
-	if (targ->takedamage)
 
-		client->damage_alpha = 11;
 
 	// friendly fire avoidance
 	// if enabled you can't hurt teammates (but you can hurt yourself)
@@ -392,6 +390,12 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		damage *= 0.5;
 		if (!damage)
 			damage = 1;
+	} else if (skill->value == 1 && deathmatch->value == 0 && targ->client)
+	{ //Medium difficulty has slightly reduced damage
+		damage *= 0.75;
+		if (!damage)
+			damage = 1;
+	
 	}
 
 	client = targ->client;
